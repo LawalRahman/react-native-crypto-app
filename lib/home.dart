@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 void main() => runApp(const HomePage());
 
 class HomePage extends StatelessWidget {
@@ -41,22 +43,12 @@ class HomePageMain extends StatelessWidget {
           child: Column (mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             NotificationAndWelcomeCard(),
-
-
-
             BitCoinGraphCard(),
             EhereumCoinGraphCard(),
             DogeCoinGraphCard(),
             CardanoCoinGraphCard(),
             VETChainCoinGraphCard(),
             SHIBAChainCoinGraphCard()
-
-
-
-
-
-
-
       ])),
 
 
@@ -78,28 +70,24 @@ class HomePageMain extends StatelessWidget {
             ListTile(
               title: const Text('User Details',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                var push = Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => showUserDetailsModal())
+                );
               },
             ),
             ListTile(
               title: const Text('Update Password',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => passwordDetailsModal()));
               },
+
             ),
 
             ListTile(
               title: const Text('Activate MFA',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -107,9 +95,6 @@ class HomePageMain extends StatelessWidget {
             ListTile(
               title: const Text('Logout',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -300,5 +285,129 @@ class SHIBAChainCoinGraphCard extends StatelessWidget {
           )
       ),
     );
+  }
+}
+
+
+
+class showUserDetailsModal extends StatelessWidget {
+  @override
+  Widget  build (BuildContext context) {
+    return Container(
+      height: 200,
+      // color: Colors.orangeAccent,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
+            UserDetailCard(),
+
+
+            ElevatedButton(
+              child: const Text('Close'),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class passwordDetailsModal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
+            UpdatePasswordCard(),
+            ElevatedButton(
+              child: const Text('submit'),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class UserDetailCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child:Container(
+        height: 120,
+        color: Colors.black12,
+        child: ListTile(
+          contentPadding: EdgeInsets.all(30),
+            isThreeLine: true,
+            leading: CircleAvatar(
+              backgroundImage: AssetImage("asset/image/username.png"), // no matter how big it is, it won't overflow
+            ),
+            title: Text('{Username}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+            subtitle: Text('{email}', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.blue)),
+            onTap: () {
+            }
+        ),
+      ),
+      elevation: 10,
+      margin: const EdgeInsets.all(10),
+    );
+  }
+}
+
+
+
+class UpdatePasswordCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+
+
+          children: <Widget>[
+
+            Text('Update Password', style: TextStyle(color: Colors.blueAccent, fontSize: 20, fontWeight: FontWeight.bold)),
+
+      const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: 'Enter old password',
+        ),
+      ),
+
+
+    ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter new password',
+                ),
+              ),
+
+
+            ),
+      ]);
+      // elevation: 10,
+      // margin: const EdgeInsets.all(10),
+
   }
 }

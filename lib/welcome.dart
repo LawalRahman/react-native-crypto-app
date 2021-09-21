@@ -12,8 +12,6 @@ void main() => runApp(const WelcomePage());
 /// This is the main application widget.
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
-  //
-  // static const String _title = 'Kudi Welcome Page';
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +21,6 @@ class WelcomePage extends StatelessWidget {
       ),
         home:  Scaffold(
     body : Container(
-
-
-      //
-      // title: _title,
      child: WelcomeMainPage(),
       )
     ));
