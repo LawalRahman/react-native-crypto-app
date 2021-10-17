@@ -1,132 +1,215 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kudi_exchange/constants.dart';
+import 'package:kudi_exchange/extras/countries.dart';
+import 'package:kudi_exchange/home.dart';
+import 'package:kudi_exchange/login.dart';
+import 'package:kudi_exchange/welcome.dart';
+import 'package:kudi_exchange/widgets/bottom_navigation_bar.dart';
+import 'package:kudi_exchange/widgets/input_widget.dart';
 
-import 'main.dart';
-
-
-
-void main() {
-  runApp(const SignUpPage());
+class SignUp extends StatefulWidget {
+  @override
+  State<SignUp> createState() => _SignUpState();
 }
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
-
+class _SignUpState extends State<SignUp> {
+  var _mySelection;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-        ),
-        home : signUpMainPage()
-    );
-  }
-}
-
-
-class signUpMainPage extends StatefulWidget {
-  const signUpMainPage({Key? key}) : super(key: key);
-
-  @override
-  State<signUpMainPage> createState() => _SignUpMainPageState();
-}
-
-
-class _SignUpMainPageState extends State<signUpMainPage> {
-  @override
-  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: new Center ( child : new Text("KUDIEX Login", textAlign: TextAlign.start)),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
+      body: Stack(
+        children: [
+          Container(
+            color: primaryColor,
+            padding: EdgeInsets.only(top: 70, left: 20, right: 20),
+            width: double.infinity,
+            height: size.height,
+            child: Column(
+              children: [
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "WELCOME TO KUDIEX\n",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40),
+                      ),
+                      TextSpan(
+                        text: "Easiest platform to trade your crypto!",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, bottom: 5),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Username',
-                    hintText: 'Enter a Username you can remember'),
+          ),
+          Center(
+            child: Container(
+              padding: EdgeInsets.only(top: 20, left: 30, right: 30),
+              margin: EdgeInsets.only(
+                top: size.height * 0.3,
+              ),
+              // transform: Matrix4.translationValues(0, size.height * 0.3, 0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                children: [
+                  const Center(
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Input(
+                    hintText: "Enter Username",
+                    passwordField: false,
+                  ),
+                  Input(
+                    hintText: "Enter Email",
+                    passwordField: false,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 15,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 0,
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                    ),
+                    child: DropdownButton(
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      hint: const Text("Select a country"),
+                      value: _mySelection,
+                      items: countries.map((country) {
+                        return DropdownMenuItem(
+                          value: country["name"],
+                          child: Text(country["name"].toString()),
+                        );
+                      }).toList(),
+                      onChanged: (newVal) {
+                        setState(() {
+                          _mySelection = newVal.toString();
+                        });
+                      },
+                    ),
+                  ),
+                  Input(
+                    hintText: "Phone Number",
+                    passwordField: false,
+                  ),
+                  Input(
+                    hintText: "Password",
+                    passwordField: true,
+                  ),
+                  Input(
+                    hintText: "Confirm Password",
+                    passwordField: true,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        Size(MediaQuery.of(context).size.width, 60),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(primaryColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      "SIGN UP",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return NavigationWidget(pageIndex: 0);
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "You have an account? ",
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Login();
+                                },
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 5),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Country',
-                    hintText: 'Select Your country from the dropdown'),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 5),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
-                    hintText: 'Enter a valid phone number'),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 5, bottom: 5),
-              child: TextField(
-
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 5, bottom: 5),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Confirm Password',
-                    hintText: 'Confirm your password'),
-              ),
-            ),
-            Container(
-              height: 40,
-              width: 200,
-              decoration: BoxDecoration(
-                  color: Colors.deepPurple, borderRadius: BorderRadius.circular(20)),
-              child: ElevatedButton.icon(
-                label: new Center ( child : new  Text('SIGNUP', style: TextStyle(color: Colors.white, fontSize: 25))),
-                icon: Icon(Icons.perm_identity),
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => kudiHomePage()));
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
