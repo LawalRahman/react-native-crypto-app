@@ -1,413 +1,746 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kudi_exchange/constants.dart';
+import 'package:kudi_exchange/token.dart';
+import 'package:kudi_exchange/widgets/bottom_navigation_bar.dart';
+import 'package:kudi_exchange/widgets/top_navigation_bar.dart';
 
-import 'main.dart';
-
-void main() => runApp(const HomePage());
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  static const appTitle = 'WELCOME';
+/// This is the stateful widget that the main application instantiates.
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      title: appTitle,
-      home: Scaffold(
-        body : Container(
-
-
-        //
-        // title: _title,
-        child:HomePageMain(title: appTitle),
-
-    )));
-  }
+  State<Home> createState() => _MyStatefulWidgetState();
 }
 
-class HomePageMain extends StatelessWidget {
-  const HomePageMain({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<Home> {
+  bool visibilityController = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: SingleChildScrollView(
-
-
-          child: Column (mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            NotificationAndWelcomeCard(),
-            BitCoinGraphCard(),
-            EhereumCoinGraphCard(),
-            DogeCoinGraphCard(),
-            CardanoCoinGraphCard(),
-            VETChainCoinGraphCard(),
-            SHIBAChainCoinGraphCard()
-      ])),
-
-
-
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('PROFILE', style: TextStyle(color: Colors.white, fontSize: 35)),
-            ),
-            ListTile(
-              title: const Text('User Details',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              onTap: () {
-                var push = Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => showUserDetailsModal())
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Update Password',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
-              onTap: () {
-                // Navigator.pop(context);
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => passwordDetailsModal()));
-              },
-
-            ),
-
-            ListTile(
-              title: const Text('Activate MFA',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            ListTile(
-              title: const Text('Logout',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class NotificationAndWelcomeCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child:Container(
-        height: 80,
-        color: Colors.black12,
-            child: ListTile(
-              isThreeLine: true,
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage("asset/image/username.png"), // no matter how big it is, it won't overflow
-                ),
-              title: Text('Welcome {Username}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-              subtitle: Text('NOTIFICATIONS', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.blue)),
-                trailing:Icon(Icons.notifications,color: Colors.blue,),
-              onTap: () {
-                  }
-            ),
-        ),
-      elevation: 10,
-      margin: const EdgeInsets.all(10),
-    );
-  }
-}
-
-
-
-class BitCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-
-      child: Container(
-          child: Column(
-              children: <Widget>[
-        ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage("asset/image/btc.png"), // no matter how big it is, it won't overflow
-            ),
-            title: Text('Bitcoin', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.deepOrangeAccent)),
-            subtitle: Text('BTC', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.deepOrangeAccent)),
-          trailing :  Text('35,000.00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-          onTap: () {
-          }
-        ),
-]
-    )
-        ),
-    );
-  }
-}
-
-
-class EhereumCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-          child: Column(
-              children: <Widget>[
-                ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage("asset/image/eth.png"), // no matter how big it is, it won't overflow
-                    ),
-                    title: const Text('Ethereum', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.deepPurpleAccent)),
-                    subtitle: const Text('ETH', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.deepPurpleAccent)),
-                    trailing :  const Text('3,500.00', style:  TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-                    onTap: () {
-                    }
-                ),
-              ]
-          )
-      ),
-    );
-  }
-}
-
-
-class DogeCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-          child: Column(
-              children: <Widget>[
-
-                ListTile(
-                    leading:  CircleAvatar(
-                      // backgroundColor: Colors.black87,
-                      backgroundImage: AssetImage("asset/image/dogecoin.png"), // no matter how big it is, it won't overflow
-                    ),
-                    title: Text('Dogecoin', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.brown)),
-                    subtitle: Text('DOGE', style: const TextStyle(fontWeight: FontWeight.bold, color : Colors.brown)),
-                    trailing :  Text('10.00', style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-                    onTap: () {
-                    }
-                ),
-              ]
-          )
-      ),
-    );
-  }
-}
-
-class CardanoCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-          child: Column(
-              children: <Widget>[
-
-                ListTile(
-                    leading:  Image(
-              image: AssetImage("asset/image/cardano.png"),
-      ), // no matter how big it is, it won't overflow
-
-                    title: const Text('Cardano', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.indigoAccent)),
-                    subtitle: const Text('ADA', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.indigoAccent)),
-                    trailing :  const Text('5.00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-                    onTap: () {
-                    }
-                ),
-              ]
-          )
-      ),
-    );
-  }
-}
-
-
-class VETChainCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-          child: Column(
-              children: <Widget>[
-
-                ListTile(
-                    leading: const CircleAvatar(
-                      backgroundImage: AssetImage("asset/image/vechain.png"), // no matter how big it is, it won't overflow
-                    ),
-                    title: const Text('VeChain', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.lightBlueAccent)),
-                    subtitle: const Text('VET', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.lightBlueAccent)),
-                    trailing :  const Text('5.00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-                    onTap: () {
-                    }
-                ),
-              ]
-          )
-      ),
-    );
-  }
-}
-
-
-class SHIBAChainCoinGraphCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-          child: Column(
-              children: <Widget>[
-
-                ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage("asset/image/shiba.png"), // no matter how big it is, it won't overflow
-                    ),
-                    title: Text('SHIBA INU', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color : Colors.black87)),
-                    subtitle: Text('SHIB', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.black87)),
-                    trailing :  Text('5.00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color : Colors.black)),
-                    onTap: () {
-                    }
-                ),
-              ]
-          )
-      ),
-    );
-  }
-}
-
-
-
-class showUserDetailsModal extends StatelessWidget {
-  @override
-  Widget  build (BuildContext context) {
+    var currency = '\$';
+    var height = MediaQuery.of(context).size.height;
     return Container(
-      height: 200,
-      // color: Colors.orangeAccent,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-
-            UserDetailCard(),
-
-
-            ElevatedButton(
-              child: const Text('Close'),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 20,
+        bottom: 5,
       ),
-    );
-  }
-}
-
-
-class passwordDetailsModal extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-
-            UpdatePasswordCard(),
-            ElevatedButton(
-              child: const Text('submit'),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class UserDetailCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child:Container(
-        height: 120,
-        color: Colors.black12,
-        child: ListTile(
-          contentPadding: EdgeInsets.all(30),
-            isThreeLine: true,
-            leading: CircleAvatar(
-              backgroundImage: AssetImage("asset/image/username.png"), // no matter how big it is, it won't overflow
-            ),
-            title: Text('{Username}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-            subtitle: Text('{email}', style: TextStyle(fontWeight: FontWeight.bold, color : Colors.blue)),
-            onTap: () {
-            }
-        ),
-      ),
-      elevation: 10,
-      margin: const EdgeInsets.all(10),
-    );
-  }
-}
-
-
-
-class UpdatePasswordCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-
-
-          children: <Widget>[
-
-            Text('Update Password', style: TextStyle(color: Colors.blueAccent, fontSize: 20, fontWeight: FontWeight.bold)),
-
-      const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Enter old password',
-        ),
-      ),
-
-
-    ),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter new password',
+      child: ListView(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        children: [
+          TopNavigation(
+            header: "Watchlist",
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            children: [
+              Visibility(
+                visible: visibilityController,
+                child: Stack(
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: InkWell(
+                        splashColor: Colors.blue.withAlpha(30),
+                        onTap: () {
+                          print("Notification");
+                        },
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: height * 0.15,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30.0, vertical: 0),
+                            child: Center(
+                              child: Text(
+                                'Here is a notification shown to the user',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: EdgeInsets.all(16.0),
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            iconSize: 15,
+                            icon: const Icon(Icons.close),
+                            color: Colors.white,
+                            tooltip: MaterialLocalizations.of(context)
+                                .closeButtonTooltip,
+                            onPressed: () {
+                              setState(() {
+                                visibilityController = false;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-
-
-            ),
-      ]);
-      // elevation: 10,
-      // margin: const EdgeInsets.all(10),
-
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Token();
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 0,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          child: SvgPicture.asset(
+                            "asset/image/ethereum-eth.svg",
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: const Text(
+                                      "Ethereum",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "$currency 0.50",
+                                      // textAlign: TextAlign.right,
+                                      style: const TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: const Text(
+                                      "ETH",
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: const Text(
+                                      "+0.05%",
+                                      // textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Token();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: SvgPicture.asset(
+                              "asset/image/bitcoin.svg",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "Bitcoin",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "$currency 0.50",
+                                        // textAlign: TextAlign.right,
+                                        style: const TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "BTC",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: const Text(
+                                        "+0.05%",
+                                        // textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Token();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: SvgPicture.asset(
+                              "asset/image/dogecoin.svg",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "Dogecoin",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "$currency 0.50",
+                                        // textAlign: TextAlign.right,
+                                        style: const TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "DOGE",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: const Text(
+                                        "+0.05%",
+                                        // textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Token();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: SvgPicture.asset(
+                              "asset/image/cardano.svg",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "Cardano",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "$currency 0.50",
+                                        // textAlign: TextAlign.right,
+                                        style: const TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "ADA",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: const Text(
+                                        "+0.05%",
+                                        // textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Token();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: SvgPicture.asset(
+                              "asset/image/ven.svg",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "Vechain",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "$currency 0.50",
+                                        // textAlign: TextAlign.right,
+                                        style: const TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "VET",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: const Text(
+                                        "+0.05%",
+                                        // textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Token();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: SvgPicture.asset(
+                              "asset/image/bitcoin-cash.svg",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "Bitcoin Cash",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "$currency 0.50",
+                                        // textAlign: TextAlign.right,
+                                        style: const TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: const Text(
+                                        "BCH",
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: const Text(
+                                        "+0.05%",
+                                        // textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

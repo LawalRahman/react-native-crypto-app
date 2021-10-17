@@ -1,13 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:kudi_exchange/constants.dart';
+import 'package:kudi_exchange/login.dart';
 import 'package:kudi_exchange/signup.dart';
-import 'package:kudi_exchange/trade.dart';
-import 'package:kudi_exchange/virtualPortfolio.dart';
 
-import 'home.dart';
-import 'learn.dart';
-import 'main.dart';
-
-void main() => runApp(const WelcomePage());
+// void main() => runApp(const WelcomePage());
 
 /// This is the main application widget.
 class WelcomePage extends StatelessWidget {
@@ -15,78 +13,114 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-        home:  Scaffold(
-    body : Container(
-     child: WelcomeMainPage(),
-      )
-    ));
-  }
-}
-
-/// This is the stateful widget that the main application instantiates.
-class WelcomeMainPage extends StatefulWidget {
-  const WelcomeMainPage({Key? key}) : super(key: key);
-
-  @override
-  State<WelcomeMainPage> createState() => _WelcomePageState();
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-class _WelcomePageState extends State<WelcomeMainPage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    VirtualPortfolioPage(),
-    TradePage(),
-    LearnPage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Virtual Portfolio',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.timeline),
-            label: 'Trade',
-            backgroundColor: Colors.red,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Learn',
-            backgroundColor: Colors.deepPurple,
-
-          ),
-
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
+      body: Container(
+        height: height,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Container(
+                height: height * 0.3,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage("asset/image/bear.png"),
+                )),
+              ),
+            ),
+            Expanded(
+                child: Column(
+              children: [
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "WELCOME TO KUDIEX\n",
+                        style: TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30),
+                      ),
+                      TextSpan(
+                        text: "Easiest platform to trade your crypto!",
+                        style: TextStyle(color: textColor, fontSize: 15),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // padding: EdgeInsets.only(bottom: 10),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all<Size>(
+                                Size(width * 0.3, 60)),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(primaryColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                          ),
+                          child: Text(
+                            "LOGIN",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Login();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(width: 15),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all<Size>(
+                                Size(width * 0.3, 60)),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(primaryColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                          ),
+                          child: Text(
+                            "SIGNUP",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SignUp();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

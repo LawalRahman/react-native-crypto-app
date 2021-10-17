@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kudi_exchange/constants.dart';
-import 'package:kudi_exchange/forgot_password.dart';
-import 'package:kudi_exchange/home.dart';
+import 'package:kudi_exchange/login.dart';
 import 'package:kudi_exchange/signup.dart';
-import 'package:kudi_exchange/widgets/bottom_navigation_bar.dart';
+import 'package:kudi_exchange/welcome.dart';
 import 'package:kudi_exchange/widgets/input_widget.dart';
 
-class Login extends StatelessWidget {
+class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,14 +57,12 @@ class Login extends StatelessWidget {
               ),
               child: ListView(
                 children: [
-                  const Center(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  const Text(
+                    "Forgot Password",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(
@@ -76,7 +73,7 @@ class Login extends StatelessWidget {
                     passwordField: false,
                   ),
                   Input(
-                    hintText: "Enter Password",
+                    hintText: "Enter New Password",
                     passwordField: true,
                   ),
                   Row(
@@ -88,13 +85,13 @@ class Login extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return ForgotPassword();
+                                return Login();
                               },
                             ),
                           );
                         },
                         child: const Text(
-                          "forgot password?",
+                          "Back to login",
                           style: TextStyle(
                             color: primaryColor,
                             fontSize: 15,
@@ -121,55 +118,13 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      "LOGIN",
+                      "SUBMIT",
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return NavigationWidget(pageIndex: 0);
-                          },
-                        ),
-                      );
-                    },
+                    onPressed: null,
                   ),
                   const SizedBox(
                     height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Don't have an account? ",
-                        style: TextStyle(
-                          color: textColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return SignUp();
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
