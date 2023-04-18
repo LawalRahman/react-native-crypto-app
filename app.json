@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "kuid_exchange",
+    "slug": "kuid_exchange"
+  }
+}
