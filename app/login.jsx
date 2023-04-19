@@ -36,7 +36,7 @@ const Login = () => {
             </Text>
             <Icon as={FontAwesome5} name={"arrow-right"} />
           </HStack>
-          <Button>Log In</Button>
+          <Button onPress={() => router.push("home")}>Log In</Button>
           <Flex
             alignItems={"center"}
             justifyContent={"center"}

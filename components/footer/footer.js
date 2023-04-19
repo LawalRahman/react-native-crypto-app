@@ -1,4 +1,4 @@
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, Octicons } from "@expo/vector-icons";
 import {
   Box,
   Center,
@@ -10,9 +10,11 @@ import {
 } from "native-base";
 import { useState } from "react";
 import { COLORS } from "../../constants";
+import { useRouter } from "expo-router";
 
-function Footer() {
-  const [selected, setSelected] = useState(0);
+function Footer({ active = 0 }) {
+  const [selected, setSelected] = useState(active);
+  const router = useRouter();
   return (
     <NativeBaseProvider>
       <Box
@@ -35,7 +37,10 @@ function Footer() {
             opacity={selected === 0 ? 1 : 0.5}
             // py="2"
             flex={1}
-            onPress={() => setSelected(0)}
+            onPress={() => {
+              setSelected(0);
+              router.push("home");
+            }}
           >
             <Center>
               <Icon
@@ -55,7 +60,10 @@ function Footer() {
             opacity={selected === 1 ? 1 : 0.5}
             py="2"
             flex={1}
-            onPress={() => setSelected(1)}
+            onPress={() => {
+              setSelected(1);
+              router.push("wallet");
+            }}
           >
             <Center>
               <Icon
@@ -70,32 +78,39 @@ function Footer() {
               </Text>
             </Center>
           </Pressable>
-          {/* <Pressable
+          <Pressable
             cursor="pointer"
-            opacity={selected === 2 ? 1 : 0.6}
             py="2"
             flex={1}
-            onPress={() => setSelected(2)}
+            onPress={() => {
+              setSelected(2);
+              router.push("swap");
+            }}
           >
-            <Center>
-              <Icon
-                mb="1"
-                as={FontAwesome5}
-                name={"arrow-right-arrow-left"}
-                color={selected === 0 ? COLORS.gray : "primary.100"}
-                size="sm"
-              />
-              <Text color="black" fontSize="12">
-                Exchange
-              </Text>
+            <Center position={"relative"}>
+              <Box
+                position={"absolute"}
+                bottom={0}
+                backgroundColor={"primary.700"}
+                w={"16"}
+                h={"16"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                rounded={"full"}
+              >
+                <Octicons name="arrow-switch" size={24} color="white" />
+              </Box>
             </Center>
-          </Pressable> */}
+          </Pressable>
           <Pressable
             cursor="pointer"
             opacity={selected === 3 ? 1 : 0.5}
             py="2"
             flex={1}
-            onPress={() => setSelected(3)}
+            onPress={() => {
+              setSelected(3);
+              router.push("market");
+            }}
           >
             <Center>
               <Icon
@@ -115,7 +130,10 @@ function Footer() {
             opacity={selected === 4 ? 1 : 0.5}
             py="2"
             flex={1}
-            onPress={() => setSelected(4)}
+            onPress={() => {
+              setSelected(4);
+              router.push("account");
+            }}
           >
             <Center>
               <Icon

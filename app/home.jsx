@@ -14,11 +14,10 @@ import {
 import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import Footer from "../components/footer/footer";
 
 const { width, height } = Dimensions.get("window");
 
-const cryptos = [
+export const cryptos = [
   {
     id: 1,
     shortName: "BTC",
@@ -69,7 +68,7 @@ const cryptos = [
 const Home = () => {
   return (
     <>
-      <Common>
+      <Common active={0} isAuth={true}>
         <Stack.Screen
           options={{
             headerStyle: {
@@ -94,7 +93,7 @@ const Home = () => {
             headerBackVisible: false,
           }}
         />
-        <ScrollView flexGrow={1} showsVerticalScrollIndicator={false} pb={200}>
+        <ScrollView flexGrow={1} showsVerticalScrollIndicator={false}>
           <VStack>
             <View flexDir={"row"} justifyContent={"space-between"}>
               <Text fontWeight={"extrabold"}>Assets</Text>
@@ -124,7 +123,12 @@ const Home = () => {
                           />
                           <View>
                             <Text fontWeight={"bold"}>{item.shortName}</Text>
-                            <Text color={COLORS.gray}>{item.longName}</Text>
+                            <Text
+                              color={COLORS.gray}
+                              textTransform={"uppercase"}
+                            >
+                              {item.longName}
+                            </Text>
                           </View>
                         </View>
                         <View>
@@ -203,7 +207,7 @@ const Home = () => {
             <View flexDir={"row"} justifyContent={"space-between"}>
               <Text fontWeight={"extrabold"}>Gainers & Losers</Text>
             </View>
-            <View mb={30}>
+            <View mb={60}>
               {cryptos.map((item, index) => (
                 <Box
                   key={index}
@@ -225,7 +229,9 @@ const Home = () => {
                       />
                       <View>
                         <Text fontWeight={"bold"}>{item.shortName}</Text>
-                        <Text color={COLORS.gray}>{item.longName}</Text>
+                        <Text color={COLORS.gray} textTransform={"uppercase"}>
+                          {item.longName}
+                        </Text>
                       </View>
                     </View>
                     <View>
@@ -243,9 +249,6 @@ const Home = () => {
           </VStack>
         </ScrollView>
       </Common>
-      <View position={"relative"}>
-        <Footer />
-      </View>
     </>
   );
 };
