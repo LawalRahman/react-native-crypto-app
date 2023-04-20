@@ -39,7 +39,7 @@ function Footer({ active = 0 }) {
             flex={1}
             onPress={() => {
               setSelected(0);
-              router.push("home");
+              router.replace("home");
             }}
           >
             <Center>
@@ -62,7 +62,7 @@ function Footer({ active = 0 }) {
             flex={1}
             onPress={() => {
               setSelected(1);
-              router.push("wallet");
+              router.replace("wallet");
             }}
           >
             <Center>
@@ -84,7 +84,7 @@ function Footer({ active = 0 }) {
             flex={1}
             onPress={() => {
               setSelected(2);
-              router.push("swap");
+              router.replace("swap");
             }}
           >
             <Center position={"relative"}>
@@ -109,7 +109,7 @@ function Footer({ active = 0 }) {
             flex={1}
             onPress={() => {
               setSelected(3);
-              router.push("market");
+              router.replace("market");
             }}
           >
             <Center>
@@ -132,7 +132,7 @@ function Footer({ active = 0 }) {
             flex={1}
             onPress={() => {
               setSelected(4);
-              router.push("account");
+              router.replace("account");
             }}
           >
             <Center>

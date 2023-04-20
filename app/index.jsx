@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Redirect } from "expo-router";
+import { Spinner } from "native-base";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
@@ -10,7 +11,6 @@ const Index = () => {
     (async () => {
       const appData = await AsyncStorage.getItem("isAppFirstLaunched");
       if (appData === null) {
-        console.log(appData);
         setIsAppFirstLaunched(true);
         AsyncStorage.setItem("isAppFirstLaunched", "false");
       } else {
@@ -18,9 +18,12 @@ const Index = () => {
       }
     })();
   }, []);
+  if (isAppFirstLaunched === null) {
+    return <Spinner />;
+  }
   return (
     <View>
-      {isAppFirstLaunched !== null ? (
+      {isAppFirstLaunched === true ? (
         <Redirect href="/onboarding" />
       ) : (
         <Redirect href="/login" />

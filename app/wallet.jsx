@@ -7,6 +7,7 @@ import {
   Image,
   Box,
   Center,
+  Button,
 } from "native-base";
 import Common from "../components/common/Common";
 import { Stack } from "expo-router";
@@ -67,6 +68,34 @@ const Wallet = () => {
               </Center>
             </HStack>
           </Box>
+          <HStack justifyContent={"space-between"} mt={3}>
+            <Button
+              bg={"error.400"}
+              rightIcon={
+                <MaterialCommunityIcons
+                  name="arrow-bottom-left"
+                  size={24}
+                  color="white"
+                />
+              }
+              w="48%"
+            >
+              Receive
+            </Button>
+            <Button
+              w="48%"
+              bg={"primary.700"}
+              rightIcon={
+                <MaterialCommunityIcons
+                  name="arrow-top-right"
+                  size={24}
+                  color="white"
+                />
+              }
+            >
+              Send
+            </Button>
+          </HStack>
           <VStack mt={5}>
             <View flexDir={"row"} justifyContent={"space-between"}>
               <Text fontWeight={"extrabold"}>Transaction History</Text>

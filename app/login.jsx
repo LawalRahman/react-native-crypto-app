@@ -6,11 +6,13 @@ import {
   Button,
   Icon,
   Flex,
+  Box,
 } from "native-base";
 import Common from "../components/common/Common";
 import Input from "../components/Input/Input";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { COLORS } from "../constants";
 
 const Login = () => {
   const router = useRouter();
@@ -52,6 +54,30 @@ const Login = () => {
           </Flex>
         </VStack>
       </FormControl>
+      <Box mt={150}>
+        <Button
+          bottom={0}
+          borderColor="primary.700"
+          activeOpacity={0.8}
+          style={[
+            {
+              borderWidth: 1,
+              backgroundColor: "transparent",
+            },
+          ]}
+          onPress={() => router.push("signup")}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 15,
+              color: COLORS.gray,
+            }}
+          >
+            New here? Sign Up
+          </Text>
+        </Button>
+      </Box>
     </Common>
   );
 };

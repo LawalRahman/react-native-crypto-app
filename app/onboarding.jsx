@@ -113,6 +113,7 @@ const OnBoarding = () => {
           {currentSlideIndex == slides.length - 1 ? (
             <View style={{ height: 50 }}>
               <Button
+                bg={"primary.700"}
                 style={styles.btn}
                 onPress={() => router.replace("/signup")}
               >
@@ -130,11 +131,11 @@ const OnBoarding = () => {
           ) : (
             <View style={{ flexDirection: "row" }}>
               <Button
+                borderColor="primary.700"
                 activeOpacity={0.8}
                 style={[
                   styles.btn,
                   {
-                    borderColor: COLORS.gray,
                     borderWidth: 1,
                     backgroundColor: "transparent",
                   },
@@ -156,6 +157,7 @@ const OnBoarding = () => {
                 activeOpacity={0.8}
                 onPress={goToNextSlide}
                 style={styles.btn}
+                bg={"primary.700"}
               >
                 <Text
                   style={{
@@ -223,7 +225,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 50,
     borderRadius: 5,
-    backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
     fontWeight: "bold",
