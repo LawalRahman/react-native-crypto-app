@@ -68,7 +68,7 @@ export const cryptos = [
 const Home = () => {
   return (
     <>
-      <Common active={0} isAuth={true}>
+      <Common active={0} footer={true}>
         <Stack.Screen
           options={{
             headerStyle: {

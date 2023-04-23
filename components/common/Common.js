@@ -8,7 +8,7 @@ const Common = ({
   children,
   active = 0,
   showHeader = false,
-  isAuth = false,
+  footer = false,
 }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -22,7 +22,7 @@ const Common = ({
       >
         {children}
       </View>
-      {isAuth && (
+      {footer && (
         <View position={"relative"}>
           <Footer active={active} />
         </View>

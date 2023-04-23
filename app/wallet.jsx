@@ -10,7 +10,7 @@ import {
   Button,
 } from "native-base";
 import Common from "../components/common/Common";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { COLORS } from "../constants";
 import { cryptos } from "./home";
 import { Dimensions } from "react-native";
@@ -19,9 +19,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const { width, height } = Dimensions.get("window");
 
 const Wallet = () => {
+  const router = useRouter();
   return (
     <>
-      <Common active={1} isAuth={true}>
+      <Common active={1} footer={true}>
         <Stack.Screen
           options={{
             headerStyle: {
@@ -37,7 +38,12 @@ const Wallet = () => {
             headerBackVisible: false,
           }}
         />
-        <ScrollView flexGrow={1} showsVerticalScrollIndicator={false} pb={200}>
+        <ScrollView
+          flexGrow={1}
+          showsVerticalScrollIndicator={false}
+          pb={200}
+          mt={5}
+        >
           <Box
             borderWidth="1"
             borderColor={COLORS.lightWhite}
@@ -79,10 +85,12 @@ const Wallet = () => {
                 />
               }
               w="48%"
+              onPress={() => router.push("receiveCrypto")}
             >
               Receive
             </Button>
             <Button
+              onPress={() => router.push("sendCrypto")}
               w="48%"
               bg={"primary.700"}
               rightIcon={
@@ -99,7 +107,9 @@ const Wallet = () => {
           <VStack mt={5}>
             <View flexDir={"row"} justifyContent={"space-between"}>
               <Text fontWeight={"extrabold"}>Transaction History</Text>
-              <Text>View all</Text>
+              <Text onPress={() => router.push("transactionHistory")}>
+                View all
+              </Text>
             </View>
             <View gap={5} mt={3}>
               {cryptos.map(

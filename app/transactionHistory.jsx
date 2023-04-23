@@ -4,27 +4,23 @@ import {
   Text,
   VStack,
   View,
-  Image,
   Box,
-  Button,
-  Input,
+  Center,
 } from "native-base";
 import Common from "../components/common/Common";
 import { Stack, useRouter } from "expo-router";
 import { COLORS } from "../constants";
 import { cryptos } from "./home";
 import { Dimensions } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-const Market = () => {
+const TransactionHistory = () => {
   const router = useRouter();
-  const [activeFilter, setActiveFilter] = useState(0);
   return (
     <>
-      <Common active={1} footer={true}>
+      <Common footer={false}>
         <Stack.Screen
           options={{
             headerStyle: {
@@ -32,106 +28,18 @@ const Market = () => {
             },
             headerShadowVisible: true,
             headerShown: true,
-            headerTitle: "Market",
+            headerTitle: "Transaction History",
             headerTitleAlign: "center",
             headerTitleStyle: {
               fontSize: 15,
             },
-            headerBackVisible: false,
+            headerBackVisible: true,
           }}
         />
-        <ScrollView
-          flexGrow={1}
-          showsVerticalScrollIndicator={false}
-          pb={200}
-          mt={5}
-        >
-          <VStack>
-            <Input />
-          </VStack>
-          <HStack mt={3} justifyContent={"space-between"}>
-            <Button
-              w={"24%"}
-              borderColor="primary.700"
-              activeOpacity={0.8}
-              _text={{
-                fontSize: 10,
-                color: activeFilter === 0 ? "white" : "black",
-              }}
-              color={activeFilter === 0 ? "primary.700" : "white"}
-              style={[
-                {
-                  borderWidth: 1,
-                },
-              ]}
-              onPress={() => setActiveFilter(0)}
-            >
-              All Coin
-            </Button>
-
-            <Button
-              w={"24%"}
-              borderColor="primary.700"
-              activeOpacity={0.8}
-              _text={{
-                fontSize: 10,
-                color: activeFilter === 1 ? "white" : "black",
-              }}
-              colorScheme={activeFilter === 1 ? "primary" : "white"}
-              style={[
-                {
-                  borderWidth: 1,
-                },
-              ]}
-              rightIcon={<AntDesign name="arrowup" size={18} color="green" />}
-              onPress={() => setActiveFilter(1)}
-            >
-              Gain
-            </Button>
-            <Button
-              w={"24%"}
-              borderColor="primary.700"
-              activeOpacity={0.8}
-              _text={{
-                fontSize: 10,
-                color: activeFilter === 2 ? "white" : "black",
-              }}
-              colorScheme={activeFilter === 2 ? "primary" : "white"}
-              style={[
-                {
-                  borderWidth: 1,
-                },
-              ]}
-              rightIcon={<AntDesign name="arrowdown" size={18} color="red" />}
-              onPress={() => setActiveFilter(2)}
-            >
-              Lose
-            </Button>
-            <Button
-              w={"24%"}
-              borderColor="primary.700"
-              activeOpacity={0.8}
-              _text={{
-                fontSize: 10,
-                color: activeFilter === 3 ? "white" : "black",
-              }}
-              colorScheme={activeFilter === 3 ? "primary" : "white"}
-              style={[
-                {
-                  borderWidth: 1,
-                },
-              ]}
-              onPress={() => setActiveFilter(3)}
-            >
-              New Coin
-            </Button>
-          </HStack>
+        <ScrollView flexGrow={1} showsVerticalScrollIndicator={false} pb={200}>
           <VStack mt={5}>
             <View flexDir={"row"} justifyContent={"space-between"}>
-              <Text fontWeight={"extrabold"}>Transaction History</Text>
-              <Text onPress={() => router.push("transactionHistory")}>
-                View all
-              </Text>
+              <Text fontWeight={"extrabold"}>22/03/2023</Text>
             </View>
             <View gap={5} mt={3}>
               {cryptos.map(
@@ -150,11 +58,13 @@ const Market = () => {
                     >
                       <HStack justifyContent={"space-between"}>
                         <View flexDir={"row"} gap={2}>
-                          <Image
-                            source={item.image}
-                            alt={item.longName}
-                            size={50}
-                          />
+                          <Center size={50} bg={"error.400"} rounded={"full"}>
+                            <MaterialCommunityIcons
+                              name="arrow-bottom-left"
+                              size={24}
+                              color="white"
+                            />
+                          </Center>
                           <View>
                             <Text fontWeight={"bold"}>{item.shortName}</Text>
                             <Text
@@ -186,8 +96,7 @@ const Market = () => {
           </VStack>
           <VStack mt={5}>
             <View flexDir={"row"} justifyContent={"space-between"}>
-              <Text fontWeight={"extrabold"}>Assets</Text>
-              <Text>View all</Text>
+              <Text fontWeight={"extrabold"}>22/03/2023</Text>
             </View>
             <View gap={5} mt={3} mb={60}>
               {cryptos.map((item, index) => (
@@ -204,11 +113,13 @@ const Market = () => {
                 >
                   <HStack justifyContent={"space-between"}>
                     <View flexDir={"row"} gap={2}>
-                      <Image
-                        source={item.image}
-                        alt={item.longName}
-                        size={50}
-                      />
+                      <Center size={50} bg={"primary.700"} rounded={"full"}>
+                        <MaterialCommunityIcons
+                          name="arrow-top-right"
+                          size={24}
+                          color="white"
+                        />
+                      </Center>
                       <View>
                         <Text fontWeight={"bold"}>{item.shortName}</Text>
                         <Text color={COLORS.gray} textTransform={"uppercase"}>
@@ -240,4 +151,4 @@ const Market = () => {
   );
 };
 
-export default Market;
+export default TransactionHistory;
