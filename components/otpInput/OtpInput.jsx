@@ -12,8 +12,8 @@ const OtpInput = ({ isLoading, onComplete }) => {
         <Box w={60}>
           <Input
             autoFocus={true}
-            style={{ textAlign: "center" }}
-            type="text"
+            style={{ textAlign: "center", fontSize: 20 }}
+            type="password"
             maxLength={1}
             ref={ref1}
             onChangeText={(val) => {
@@ -24,8 +24,8 @@ const OtpInput = ({ isLoading, onComplete }) => {
         </Box>
         <Box w={60}>
           <Input
-            style={{ textAlign: "center" }}
-            type="text"
+            style={{ textAlign: "center", fontSize: 20 }}
+            type="password"
             maxLength={1}
             ref={ref2}
             onChangeText={(val) => {
@@ -36,8 +36,8 @@ const OtpInput = ({ isLoading, onComplete }) => {
         </Box>
         <Box w={60}>
           <Input
-            style={{ textAlign: "center" }}
-            type="text"
+            style={{ textAlign: "center", fontSize: 20 }}
+            type="password"
             maxLength={1}
             ref={ref3}
             onChangeText={(val) => {
@@ -48,8 +48,8 @@ const OtpInput = ({ isLoading, onComplete }) => {
         </Box>
         <Box w={60}>
           <Input
-            style={{ textAlign: "center" }}
-            type="text"
+            style={{ textAlign: "center", fontSize: 20 }}
+            type="password"
             maxLength={1}
             ref={ref4}
             onChangeText={(val) => {

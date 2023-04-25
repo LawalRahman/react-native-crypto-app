@@ -10,6 +10,7 @@ import shiba from "../assets/images/shiba.png";
 import vechain from "../assets/images/vechain.png";
 import cardano from "../assets/images/cardano.png";
 import dogecoin from "../assets/images/dogecoin.png";
+import avatar from "../assets/images/avatar.webp";
 
 export default {
   buySell,
@@ -24,4 +25,5 @@ export default {
   eth,
   cardano,
   dogecoin,
+  avatar,
 };
